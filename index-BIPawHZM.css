@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Flower Shop"
+version = "1.0.0"
+id = "artifacts/flower-shop"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21307
+
+[services.development]
+run = "pnpm --filter @workspace/flower-shop run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/flower-shop", "run", "build" ]
+publicDir = "artifacts/flower-shop/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21307"
+BASE_PATH = "/"
